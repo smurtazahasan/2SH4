@@ -1,0 +1,111 @@
+//Syed-Murtaza Hasan_400128544_hasans25_28/09/2018_Lab1_Variant 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int sum = 0, i;// initializing all the variables going to be used
+    for(i=40; i<151; i++) //started a for-loop to go through each number
+    {
+        if(i%8==0)//checks to see if I is a multiple of 8
+        {
+            sum = sum + i;//adds the number to the sum
+        }
+    }
+    printf("the sum of all number between 40 and 150 which are multiple of 8 is %d", sum);
+    return 0;
+}
+
+--
+
+//Syed-Murtaza Hasan_400128544_hasans25_28/09/2018_Lab1_Variant 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int i, j, m, sum;
+    printf("Enter the value of integer m: ");
+    scanf("%d", &m);
+    printf("Perfect numbers between %d to %d \n", m, 2*m);
+    for(i=m; i<=2*m+1; i++){
+        sum = 0;
+        for(j=1; j<i; j++){
+            if(i%j==0){
+                sum=sum+j;
+            }
+        }
+        if(sum==i){
+            printf("One perfect number is %d \n", i);
+        }
+    }
+    return 0;
+}
+
+
+--
+
+//Syed-Murtaza Hasan_400128544_hasans25_28/09/2018_Lab1_Variant 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int n, z=0;
+    while (z==0) {
+        printf("ENTER AN ODD NUMBER GREATER OR EQUAL TO 3 AND LOWER OR EQUAL TO 25: ");
+        scanf("%d", &n);\
+        if (n%2!=0 && n>=3 && n<=25) {
+            z=1;
+        }
+        else {
+            z=0;
+        }
+    }
+    int i, j, s;
+    s = n;
+    for (i=1;i<=n;i++)
+    {
+        for (j=1;j<s;j++){
+            printf(" ");
+        }
+        s--;
+        for (j=1;j<=2*i-1;j++){
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+
+--
+
+//Syed-Murtaza Hasan_400128544_hasans25_28/09/2018_Lab1_Variant 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int sum=0, n, i;
+    printf("Please input a positive integer: ");
+    scanf("%d", &n);
+    for (i=1; i<n+1; i++)
+    {
+       if (i%2==0)
+       {
+           sum = sum - (3^i/i);
+       }
+       else
+       {
+           sum = sum + (3^i/i);
+       }
+    }
+    printf("The sum of the first %d terms is %f", n, sum);
+    return 0;
+}
+

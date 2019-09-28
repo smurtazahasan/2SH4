@@ -1,0 +1,244 @@
+//Syed-Murtaza Hasan_400128544_2018-11-30_Lab5_Variant2
+
+//---MyNode Class---//
+
+package lab5;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author hasans25
+ */
+public class MyNode {
+    String word;
+    MyNode next;
+    public MyNode(String w, MyNode n) {
+        word = w; next = n;
+    }
+}// end class 
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+//----ItemsLinkedList Class----//
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lab5;
+
+/**
+ *
+ * @author hasans25
+ */
+public class ItemsLinkedList {
+    private MyNode head;
+    private int size;
+    
+    public ItemsLinkedList()
+    {
+        size = 0;
+        head = new MyNode(null,null);
+    }// end of constructor
+    
+    public ItemsLinkedList(String[] arrayOfItems)
+    {
+        head = new MyNode(null,null);
+        MyNode p = head; String w;
+        for (int i = 0; i<arrayOfItems.length; i++) {
+            w = new String (arrayOfItems[i]);
+            p.next = new MyNode(w,null);
+            p = p.next;
+        }// end of for loop
+        size = arrayOfItems.length;
+    }//end of constructor
+    
+    public void printList() {
+        MyNode p;
+        System.out.print("The list contains [");
+        for (p=head.next; p!=null; p=p.next)
+            System.out.print(p.word + " ");
+        System.out.print("]. Its size is " + size +".\n");
+    }// end of printList
+    
+    public int getSize() {
+        return size;
+    }// end of getSize
+    
+    public boolean replace(int j, String w) {
+        if (j > size-1 || j < 0) {return false;}
+        else {
+          int myCounter = 0;
+          for (MyNode x = head.next; x != null; x = x.next){
+              if (j == myCounter) {x.word = w;}
+              myCounter++;
+          }
+          return true;
+      }
+    }// end of replace
+    
+    public void insert(String v, String w) {
+        MyNode q;
+        for (q = head.next; q != null; q = q.next){ //this will run through loinkedList q
+            if (q.word.equals(v)){ // uses the java API and finds word v
+                q.next = new MyNode(w, q.next); 
+                /*
+                * after the word v is found, new object is created of type MyNode
+                * after it finds the pos of v, the obj will be created in the next slot instead of null and then start a search immediately after adding/replacing.
+                */
+                size++;  // increases to add as soon as v appears and w will create memory
+            }            
+        }
+    }// end of insert
+    
+    public void remove(int j) {
+        int myCounter = 0;        
+        if (j>size-1 || j<0){System.out.print("\nInvalid Input, Please try again\n");} // Checks the input to see if it is valid
+        else{                
+            for (MyNode q = head; q.next  != null; q = q.next){ // runs through this list
+                if (j == myCounter){
+                    q.next = q.next.next; //points to the next node
+                    size--; //decrements the size by 1
+                    break;
+                }
+                myCounter++;
+            }
+        }
+    }//end of remove
+    
+    public ItemsLinkedList deepCopy() {
+        ItemsLinkedList theCopy = new ItemsLinkedList();   //creates a new obj
+        MyNode a = theCopy.head;    //set a head theCopy
+        MyNode p = a;               //set p to same params as a
+        String w;
+        int myCounter = 0;
+        for(MyNode b = head.next; b != null; b = b.next){   //runs through the new list
+            w = b.word;                   
+            p.next = new MyNode(w,null);   //created node which is pointing to w
+            p = p.next;
+            myCounter += 1;      //increase the counter by 1 for the size
+        }
+        theCopy.size = myCounter;  //Makes the value of size equal to the counter
+        return theCopy;
+    }
+}// end of class ItemsLinkedList
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+//----Test Class BUT in a different Package named test package----//
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package test;
+import lab5.*;
+
+/**
+ *
+ * @author hasans25
+ */
+class TestItemsList {
+    public static void main(String[] args) {
+        String[] a = {"blue", "yellow", "blue", "black"};
+        ItemsLinkedList list = new ItemsLinkedList(a);
+        list.printList();
+        System.out.println();
+        
+        //test for method getSize
+        System.out.println("Test case for method getSize");
+        String[] b = {"blue", "yellow", "blue", "black"};
+        String[] c = {"pink", "turqoise"};
+        ItemsLinkedList list1 = new ItemsLinkedList(b);
+        ItemsLinkedList list2 = new ItemsLinkedList(c);
+        list1.printList();
+        list2.printList();
+        System.out.println();
+        
+        
+        
+        //test for method replace
+        System.out.println("Beginning Test Cases: " + list.replace(0, "black"));
+        list.printList();
+        //--
+        System.out.println("Middle Test Cases: " + list.replace(1, "white"));
+        list.printList();
+        //--
+        System.out.println("End Test Cases: " + list.replace(3, "white"));
+        list.printList();
+        //Error cases
+        System.out.println(list.replace(-1, "black"));
+        list.printList();
+        //---
+        
+        
+        //test for method insert
+        System.out.println ("Test case for method insert");
+        list.insert("blue", "red"); //beginning 
+        System.out.println("Final List: ");
+        list.printList();
+        
+        //Insert at beginning middle & end
+        list.insert("yellow", "red");
+        System.out.println("Final List: ");
+        list.printList();
+        
+        //consecutive v
+        list.insert("blue", "red");
+        System.out.println("The inserted list is: ");
+        list.printList();
+        
+        //invalid index
+        list.insert("violet", "red");
+        System.out.println("The inserted list is: ");
+        list.printList();
+        
+        //test for method remove
+        System.out.println("Beginning Test Cases");
+        list.printList();
+        list.remove(0);
+        list.printList();
+        System.out.println();
+        
+        System.out.println("Middle Test Cases");
+        list.printList();
+        list.remove(1);
+        list.printList();
+        System.out.println();
+        
+        System.out.println("End Test Cases");
+        list.printList();
+        list.remove(1);
+        list.printList();
+        System.out.println();
+        
+        System.out.println("Invalid Test Cases");
+        list.printList();
+        list.remove(-10);
+        list.printList();
+        System.out.println();
+        
+        //Test for method deepcopy
+
+        System.out.println ("Test Cases for DeepCopy");
+        ItemsLinkedList theCopy = list.deepCopy();
+        theCopy.printList();
+        list.printList();
+        
+        System.out.println ("changed copy");
+        ItemsLinkedList theCopy1 = list.deepCopy();
+        theCopy.remove(1);
+        System.out.println("copy list ");
+        theCopy.printList();
+        System.out.println("original list ");
+        list.printList();
+    }
+}
+

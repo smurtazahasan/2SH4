@@ -1,0 +1,396 @@
+//Faris Youssef_001422943_Lab 4 Test_Nov.15_Sec. L08_Variant 2
+package lab;
+
+public class MyDate {
+    private int year;
+    private int month;
+    private int day;
+    
+    public MyDate(){  //initial parameters given
+        year = 1990;
+        month = 1;
+        day = 1;
+    }//end of myDate
+    
+    public MyDate(int theYear, int theMonth, int theDay){                             
+        if(theYear>0 && (theMonth >=1 && theMonth <= 12) && (theDay>=1 && theDay<=31))
+            set(theYear, theMonth, theDay);  //set to the input arguments if valid
+        else
+            set(1999,12,31);               //set to default if not valid
+    }// end of myDate
+    
+    public boolean set(int theYear, int theMonth, int theDay){
+        if(theYear<0 || theMonth<1 || theMonth>12 || theDay<=0){ //the invalid input case
+            return false;
+        }
+                                            //did the brute force way and did each month separate to see all the cases (easier to see but inefficient)
+        if(theMonth==1){                    //January
+            if(theDay>0 && theDay<=31){     //Between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==2){               //Febuary  
+            if(theYear%4!=0){               //Checking if it isnt a leap year
+                if(theDay>0 && theDay<=29){
+                    year = theYear;
+                    month = theMonth;
+                    day = theDay;
+                    return true;
+                }
+            }
+            
+            else if(theYear%4==0){         //Checking if it is a leap year
+                if(theDay>0 && theDay<=28){
+                    year = theYear;
+                    month = theMonth;
+                    day = theDay;
+                    return true;
+                }
+            }
+            else{
+                return false;
+            }
+            
+        }
+        
+        else if(theMonth==3){             //March
+            if(theDay>0 && theDay<=31){   //Between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==4){             //April
+            if(theDay>0 && theDay<=30){   //Between 1 and 30
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==5){            //May
+            if(theDay>0 && theDay<=31){  //between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==6){            //June
+            if(theDay>0 && theDay<=30){  //between 1 and 30
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==7){            //July
+            if(theDay>0 && theDay<=31){  //between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==8){           //August
+            if(theDay>0 && theDay<=31){ //between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==9){            //September
+            if(theDay>0 && theDay<=30){  //between 1 and 30
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==10){           //October
+            if(theDay>0 && theDay<=31){  //between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==11){           //November
+            if(theDay>0 && theDay<=30){  //between 1 and 30
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        else if(theMonth==12){          //December
+            if(theDay>0 && theDay<=31){  //between 1 and 31
+                year = theYear;
+                month = theMonth;
+                day = theDay;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+        return false;             //if none of the conditions are not met
+    }//end of set
+    
+    public int getYear(){return year;}//end of getYear
+    
+    public int getMonth(){return month;}//end of getMonth
+    
+    public int getDay(){return day;}//end of getDay
+    
+    public MyDate copy(){return new MyDate(this.year, this.month, this.day);}  //new copy of this
+    
+    public String toString(){return month + "/" + day + "/"+ year;}//end of toString
+}// end of class MyDate
+
+
+
+
+
+package lab;
+
+public class Employee {
+    private MyDate dateOfHiring;
+    private String firstName;
+    private String lastName;
+    
+    public Employee(int y, int m, int d, String fName, String lName){   //was set as given from the sheet
+        set(y,m,d,fName, lName);
+    }//end of Employee
+    
+    public void set(int y, int m, int d, String fName, String lName){
+        firstName = fName;                    
+        lastName = lName; 
+        dateOfHiring = new MyDate(y,m,d);   //used myDate in order to create a new object for the date of hiring
+    }//end of set
+    
+    public String getFirstName(){return new String(firstName);} //end of getfirstName
+    
+    public String getLastName(){return new String(lastName);} //end of getlastName
+    
+    public MyDate getHireday(){return dateOfHiring.copy();}//end of getHireDay
+    
+    public boolean hiredTheSameYear(Employee e){
+        if(dateOfHiring.getYear() == e.dateOfHiring.getYear())   //same year
+            return true;            
+        else
+            return false;
+    }//end of hiredTheSameYear
+    
+    public boolean isOlderThan(Employee e){
+        if((dateOfHiring.getYear() < e.dateOfHiring.getYear())){         //different year
+            return true;                
+        }        
+        else if((dateOfHiring.getYear() == e.dateOfHiring.getYear())&& ((dateOfHiring.getMonth() < e.dateOfHiring.getMonth()))){  //both are same year but different month
+            return true;   
+        }
+        else if((dateOfHiring.getYear() == e.dateOfHiring.getYear())&& ((dateOfHiring.getMonth() == e.dateOfHiring.getMonth())) && (dateOfHiring.getDay()< e.dateOfHiring.getDay())){     //both are same year and same month but different day
+            return true;                    
+        }        
+        else{
+            return false;
+        }
+    }//end of isOlderThan
+    
+    public static int[] hiredInMonth(Employee[] manyE, int theYear){
+        int employee[];
+        int size=0, k=0;
+        
+        for(int i=0; i<manyE.length; i++){                 //goes through input array of employees
+            if(manyE[i].dateOfHiring.getYear()==theYear){  //if equal to the year, increase the size
+                size++;
+            }
+        }
+        
+        employee = new int[size];                         //create new employee object
+        
+        for(int j=0; j<manyE.length; j++){                //loop through again to put into the new array with the same year employees
+            if(manyE[j].dateOfHiring.getYear()==theYear){
+                employee[k]=j;
+                k++;
+            }
+        }
+        return employee;
+    }//end of hiredInMonth
+    
+    public String toString(){return firstName + " " + lastName + "'s date of hiring is " + dateOfHiring.toString();}//end of toString  
+}// end of class Employee
+
+
+
+
+
+package lab;
+
+public class Test {
+    public static void main(String[] args) {
+        //MyDate Test Cases
+        
+        MyDate date1 = new MyDate(1996,12,1);
+        System.out.println("MyDate case 1 - input (1996,12,1)");  //Correct input for year,month,day
+        System.out.println("Year:" + date1.getYear());
+        System.out.println("Month:" + date1.getMonth());
+        System.out.println("Day: " + date1.getDay());
+        System.out.println("Copy:" + date1.copy());
+        System.out.println("String:" + date1.toString());
+        
+        System.out.println();
+        
+        MyDate date2 = new MyDate(-1,12,1);
+        System.out.println("MyDate case 2 - input (-1,12,1)");    //Wrong input for year
+        System.out.println("Year:" + date2.getYear());
+        System.out.println("Month:" + date2.getMonth());
+        System.out.println("Day: " + date2.getDay());
+        System.out.println("Copy:" + date2.copy());
+        System.out.println("String:" + date2.toString());
+        
+        System.out.println();
+        
+        MyDate date3 = new MyDate(1996,-1,1);
+        System.out.println("MyDate case 3 - input (1996,-1,1)");  //Wrong input for month
+        System.out.println("Year:" + date3.getYear());
+        System.out.println("Month:" + date3.getMonth());
+        System.out.println("Day: " + date3.getDay());
+        System.out.println("Copy:" + date3.copy());
+        System.out.println("String:" + date3.toString());
+        
+        System.out.println();
+        
+        MyDate date4 = new MyDate(1996,12,-1);
+        System.out.println("MyDate case 4 - input (1996,12,-1)"); //Wrong input for day
+        System.out.println("Year:" + date4.getYear());
+        System.out.println("Month:" + date4.getMonth());
+        System.out.println("Day: " + date4.getDay());
+        System.out.println("Copy:" + date4.copy());
+        System.out.println("String:" + date4.toString());
+        
+        System.out.println();
+        
+        MyDate date5 = new MyDate(1996,0,-1);
+        System.out.println("MyDate case 5 - input (1996,0,-1)"); //Wrong input for month,day
+        System.out.println("Year:" + date5.getYear());
+        System.out.println("Month:" + date5.getMonth());
+        System.out.println("Day: " + date5.getDay());
+        System.out.println("Copy:" + date5.copy());
+        System.out.println("String:" + date5.toString());
+        
+        System.out.println();
+        
+        
+
+        //Employee Test Cases
+        
+        Employee employ1 = new Employee(1996,12,1,"Faris","Youssef");  //Correct input
+        System.out.println("First name:" + employ1.getFirstName());
+        System.out.println("Last name:" + employ1.getLastName());
+        System.out.println("Hire day:" + employ1.getHireday());
+        System.out.println("String:" + employ1.toString());
+        
+        System.out.println();
+        
+        Employee employ2 = new Employee(1996,4,25,"Juan","Lopera");        
+        System.out.println("Employee case 1 - same year but not older");
+        System.out.println("Input (1996,12,1) & (1996,4,25)");
+        System.out.println("HiredTheSameYear:" + employ1.hiredTheSameYear(employ2));
+        System.out.println("IsOlderThan:" + employ1.isOlderThan(employ2));
+        
+        System.out.println();
+        
+        Employee employ3 = new Employee(1996,12,31,"Juan","Lopera");         
+        System.out.println("Employee case 2 - same year but older");
+        System.out.println("Input (1996,12,1) & (1996,12,31)");
+        System.out.println("HiredTheSameYear:" + employ1.hiredTheSameYear(employ3));
+        System.out.println("IsOlderThan:" + employ1.isOlderThan(employ3));
+        
+        System.out.println();
+        
+        Employee employ4 = new Employee(1995,4,25,"Juan","Lopera");         
+        System.out.println("Employee case 3 - different year but not older");
+        System.out.println("Input (1996,12,1) & (1995,4,25)");
+        System.out.println("HiredTheSameYear:" + employ1.hiredTheSameYear(employ4));
+        System.out.println("IsOlderThan:" + employ1.isOlderThan(employ4));
+        
+        System.out.println();
+        
+        Employee employ5 = new Employee(1997,4,25,"Juan","Lopera");         
+        System.out.println("Employee case 4 - different but older");
+        System.out.println("Input (1996,12,1) & (1997,4,25)");
+        System.out.println("HiredTheSameYear:" + employ1.hiredTheSameYear(employ5));
+        System.out.println("IsOlderThan:" + employ1.isOlderThan(employ5));
+        
+        System.out.println();
+        
+        Employee employ6 = new Employee(1996,-1,1,"Faris","Youssef");  //Wrong input
+        System.out.println("Employee case 5 - input(1996,-1,1)");
+        System.out.println("First name:" + employ6.getFirstName());
+        System.out.println("Last name:" + employ6.getLastName());
+        System.out.println("Hire day:" + employ6.getHireday());
+        System.out.println("String:" + employ6.toString());
+        
+        System.out.println();
+        
+        System.out.println("Employee case 6 - hiredInMonth");
+        System.out.println("Input of 3 Employees with 1996, 2 without 1996");
+        int[] position;
+        Employee Faris, Micheal, Bob, Juan, Arbaaz;
+        Faris = new Employee(1996,12,31,"Faris","Youssef");
+        Micheal = new Employee(1996,1,1, "Micheal","Jackson");
+        Bob = new Employee(1997,6,25,"Bob", "Smith");          //1997
+        Juan = new Employee(1998,4,25,"Juan","Lopera");        //1998
+        Arbaaz = new Employee(1996,2,18,"Arbaaz","Patel");
+        Employee [] arrOfEmployees = {Faris, Micheal, Bob, Juan, Arbaaz};
+        position = Faris.hiredInMonth(arrOfEmployees, 1996);
+        System.out.println("Postions of employees hired in the same year: " + position[0] + ", " + position[1] + ", " + position[2]); //0,1,4   
+    }  
+}//end of test class

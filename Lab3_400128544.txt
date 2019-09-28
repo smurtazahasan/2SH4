@@ -1,0 +1,85 @@
+//Syed-Murtaza Hasan_400128544_02/11/2018_Lab3_Variant1_Q1
+//importing required libraries
+#include <stdio.h>
+#include <stdlib.h>
+//defining the structure for person
+typedef struct {
+    int id;
+    char surname[20];
+    char givenname[20];
+    float salary;
+    char dob[9];
+} person;
+
+//creating the first function to input info into list
+
+person **create_persons_list(int *sizeP) {
+    printf("How many Employes? : ");
+    scanf("%d", sizeP);
+    person **list = calloc(*sizeP, sizeof(person));
+    printf("Input info in this format: ID surname given name birthday salary (Mind the spaces)");
+    for (int i = 0; i < *sizeP; i++) {
+        list[i] = calloc(1, sizeof(person));
+        scanf("%d %s %s", &(list[i]->id), list[i]->surname, list[i]->givenname);
+        int counter = 0;
+        for (int x = 0; x < 11; x++) {
+            char a;
+            scanf("%c", &a);
+            if (x != ' ' && x != '/') {
+                (list[i]->dob)[counter] = a;
+                counter++;
+            }
+        }
+        (list[i]->dob)[8] = '\0';
+        scanf("%f", &(list[i]->salary));
+    }
+    return list;
+}
+
+//this function will repeat the info entered
+void print_list(person **list, int size) {
+    for (int i = 0; i < size; i++) {
+        printf("ID: %d; name: %s, %s; DOB: %c%c/%c%c/%c%c%c%c; salary: %f$/hour\n", list[i]->id, list[i]->surname, list[i]->givenname, list[i]->dob[0], list[i]->dob[1], list[i]->dob[2], list[i]->dob[3], list[i]->dob[4], list[i]->dob[5], list[i]->dob[6], list[i]->dob[7], list[i]->salary);
+    }
+}
+
+//this function is an extension to the withdraw function below. this was created to be called in withdraw
+int id_search(int idNo, person **list, int size) {
+    for(int i = 0; i < size; i++) {
+        if(list[i]->id == idNo) { return i; }
+    }
+    return -1;
+}
+void withdraw(int idNo, person **list, int *sizeP) {
+    int remove = id_search(idNo, list, *sizeP);
+    if (remove != -1) {
+        for (int i = remove; i < (*sizeP - 1); i++) {
+            *(list[i]) = *(list[i+1]);
+        }
+        free(list[*sizeP]);
+        *sizeP -= 1;
+    } else {
+        printf("ID Number incorrect or does not exist");
+    }
+}
+void destroy_list(person **list, int *sizeP)
+{
+    for(int i = 0; i < *sizeP; i++) { free(list[i]); }
+    free(list);
+    *sizeP = 0;
+}
+
+int main()
+{
+    //Used main function from lab sheet
+    int m;
+    person **myList = create_persons_list(&m);
+    //Added the following if statement to make sure the output makes sense gramatically
+    if (m != 1) {
+        printf("The company has %d employees.\n", m);
+    } else {
+        printf("The company has %d employee.\n", m);
+    }
+    print_list(myList, m);
+    return 0;
+}

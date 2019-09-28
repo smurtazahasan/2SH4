@@ -1,0 +1,76 @@
+//Syed-Murtaza Hasan_400128544_19/10/2018_Lab2_Variant1_Q1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int a[] = {3,1,6};
+    multiple_copy(a[],b[],3,4);
+    return 0;
+}
+
+void multiple_copy(const int x[], int y[],int n, int m)
+{
+    for (int i=0; i<n; i++) {
+        temp[i] = x[i];
+        for (int j=0; j<m; j++){
+            y[j] = temp[i]*m;
+        }
+    }
+}
+
+
+
+----
+//Syed-Murtaza Hasan_400128544_19/10/2018_Lab2_Variant1_Q2
+
+#include <stdio.h>
+#include <stdlib.h>
+#define M_SIZE 100
+
+int main(void)
+{
+    char str1[M_SIZE], str2[M_SIZE];
+    int size_str1 = 0;
+    int size_str2 = 0;
+    int n;
+    char str3[n];
+    for (int i = 0; str1[i]!='\0'; i++) {
+       size_str1++;
+    }
+    for (int a = 0; str2[a]!='\0'; a++) {
+       size_str2++;
+    }
+    if (size_str1 + size_str2 == n) {
+        my_strcat(str1, str2, str3,n);
+    }
+    else{
+        printf("Alert: Arrays' size do not match");
+    }
+
+    return 0;
+}
+
+void my_strcat(const char str1[], const char str2[], char str3[], int n) {
+
+
+    int b = 0;
+    int c = 0;
+    char temp[] = str1[];
+    while(temp[b] != '\0') {
+        b++;
+    }
+    while(str2[c] != '\0') {
+        temp[b] = str2[c];
+        b++;
+        c++;
+    }
+    temp[b] = '\0';
+    str3 = temp;
+    printf("The Linked Final string is %s", str3);
+    return str3;
+}
+
+
+

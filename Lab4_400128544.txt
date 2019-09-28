@@ -1,0 +1,205 @@
+//Syed-Murtaza Hasan_400128544_16/11/2018_Lab4_Variant1
+/////////////---Test Class----////////////
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lab4;
+
+/**
+ * Name: Syed-Murtaza Hasan
+ * Student #: 400128544
+ * Mac ID: hasans25
+ * Mac Email: hasans25@mcmaster.ca
+ * @author hasans25
+ */
+public class Lab4 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        //initializing an array of 4
+        Person[] people = new Person[4];
+        people[0] = new Person("Nickola", "Tesla", 1984, 07, 31);
+        //array element 0
+        people[1] = new Person("Tommy", "Merlin", 1985, 02, 13);
+        //array element 1
+        people[2] = new Person("Tom", "Buchanan", 1996, 07, 31);
+        //array element 2
+        people[3] = new Person("Jay", "Gatsby", 1997, 07, 29);
+        //array element 3
+        people[2].set("Nick", "Carraway" , 1989, 07, 15);
+        //Testing the set method to replace a certain entry.
+        //Testing toString Method
+        for(int i = 0; i < people.length; i++){
+            //prints all the people out and tests string method
+           System.out.println(people[i].toString());
+        }
+       //Testing the getYear, getMonth, getDay, getFirstName, getLastName, and getBirthday methods
+        System.out.println(people[3].getFirstName());
+        //Tests the FirstName
+        System.out.println(people[3].getLastName());
+        //Tests the LastName
+        System.out.println(people[3].getBirthday().getYear());
+        //Tests Birthday
+        System.out.println(people[3].getBirthday().getMonth());
+        //Tests Month
+        System.out.println(people[3].getBirthday().getDay());
+        //Tests getDay;
+        MyDate date = new MyDate(1999, 11, 15);
+        MyDate date0 = new MyDate();
+        //tests the copy
+        date0 = date.copy();
+        System.out.println(date0.toString());
+        //Tests the MyDates's String Method
+        date0.set(1994, 10, 15);
+        //Tests MyDate's getDay
+        System.out.println(date0.getDay());
+        //Tests MyDate's getMonth
+        System.out.println(date0.getMonth());
+        //Tests MyDate's getYear
+        System.out.println(date0.getYear());
+        
+        int[] birthdays = people[0].birthdaysInMonth(people, 7);
+        
+        for(int i = 0; i < birthdays.length; i++){
+        System.out.println(people[birthdays[i]].toString());
+        }
+        
+        //Testing the isOlderThan method
+        System.out.println(people[1].isOlderThan(people[2]));
+        
+        //Testing the haveSameAge method
+        System.out.println(people[1].haveSameAge(people[3]));
+    }
+    
+}
+
+///////////----MyDate Class----/////////
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lab4;
+
+/**
+ * @author hasans25
+ */
+public class MyDate {
+    private int year;
+    private int month;
+    private int day;
+    
+    public MyDate() {
+        year = 1990;
+        month = 1;
+        day = 1;
+    }
+    public MyDate(int someYear, int someMonth, int someDay){set(someYear, someMonth, someDay);}
+    public boolean set (int someYear, int someMonth, int someDay) {
+        if (someYear>=1 && someMonth>=1 && someMonth<=12 && someDay>=1) {
+            if(someDay<=31 && (someMonth==1 || someMonth==3 || someMonth==5 ||someMonth==7||someMonth==8 || someMonth==10 || someMonth==12)){
+                year = someYear;
+                month = someMonth;
+                day = someDay;
+                return true; 
+            }
+            else if((someMonth==4 || someMonth==6 || someMonth==9 ||someMonth==11) && someDay<=30){
+                year = someYear;
+                month = someMonth;
+                day = someDay;
+                return true;  
+            }
+            else if(someMonth==2){
+                if((someDay<=29)&&((someYear%4)==0)){
+                    year = someYear;
+                    month = someMonth;
+                    day = someDay;
+                    return true;
+                }
+                else if((someDay<=28)&&(someYear %4!=0)){
+                    year = someYear;
+                    month = someMonth;
+                    day = someDay;
+                    return true;
+                } else{return false;}
+            } else {return false;}
+        } else {return false;}
+    }
+    public int getYear() {return year;}
+    public int getMonth() {return month;}
+    public int getDay() {return day;}
+    public MyDate copy() {
+        MyDate copying =  new MyDate(year, month, day);
+        return copying;
+    }
+    public String toString() {
+        String newString = month+"/"+day+"/"+year;
+        return newString;
+    }
+}//end of class MyDate
+
+/////////----Person Class------////
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lab4;
+
+/**
+ * @author hasans25
+ */
+public class Person {
+    private String firstName;
+    private String lastName;
+    private MyDate dateOfBirth;
+    
+    public Person(String fName, String lName, int y, int m, int d) {set(fName, lName, y, m, d);}
+    public void set(String fName, String lName, int y, int m, int d) {
+        firstName = fName;
+        lastName = lName;
+        dateOfBirth = new MyDate(y,m,d);
+    }            
+    public String getFirstName() {return firstName;}
+    public String getLastName() {return lastName;}
+    public MyDate getBirthday() {return dateOfBirth;}
+    public boolean haveSameAge(Person p) {
+        MyDate testDate = p.getBirthday();
+        return((testDate.getYear() == dateOfBirth.getYear()) && (testDate.getMonth() == dateOfBirth.getMonth()) && (testDate.getDay() == dateOfBirth.getDay()));
+    }
+    public boolean isOlderThan (Person p) {
+        MyDate testDate = p.getBirthday();
+        if(testDate.getYear() > dateOfBirth.getYear()){return true;}
+        else if(testDate.getYear() == dateOfBirth.getYear() && testDate.getMonth() > dateOfBirth.getYear()){return true;}
+        else if(testDate.getYear() == dateOfBirth.getYear() && testDate.getMonth() == dateOfBirth.getMonth() && testDate.getDay() > dateOfBirth.getDay()){return true;}
+        else{return false;}
+    }
+    public static int[] birthdaysInMonth(Person[] people, int theMonth) {
+        int counter = 0;
+        for(int i = 0; i < people.length; i++){
+            if(people[i].dateOfBirth.getMonth() == theMonth){counter = counter + 1;}
+        }
+        int[] birthdaysMonth = new int[counter];
+        int pos = 0;
+        for(int j = 0; j < counter; j ++){
+            for(int z = pos; z < people.length; z++){
+                if(people[z].dateOfBirth.getMonth() == theMonth){
+                    birthdaysMonth[j] = z;
+                    pos = z+1;
+                    break;
+                }
+            }
+        }
+        return birthdaysMonth;
+    }
+    public String toString() {
+        String meaningfulString = firstName + " " + lastName + "," + dateOfBirth.toString();
+        return meaningfulString;
+    }
+}//end of class person
